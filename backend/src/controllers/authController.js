@@ -6,7 +6,7 @@ export const registerUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        //check required fields
+        //check required fields(validation)
         if (!name || !email || !password) {
             return res.status(400).json({
                 success: false,
@@ -33,6 +33,18 @@ export const registerUser = async (req, res) => {
             email,
             password: hashedPassword,
         });
+
+        //Remove password from response
+        const userResponse = {
+            _id:user._id,
+            name:user.name,
+            email:user.email,
+            role:user.role,
+            avatar:user.avatar,
+            createdAt:user.createdAt,
+            updateAt:user.updatedAt,
+        };
+        
         res.status(201).json({
             success: true,
             message: "User Register Successfully",
