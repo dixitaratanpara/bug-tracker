@@ -5,6 +5,8 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 
 import ProtectedRoute from "../components/ProtectedRoute";
+import CreateBug from "../pages/CreateBug";
+import EditBug from "../pages/EditBug";
 
 function AppRoutes() {
   return (
@@ -23,6 +25,10 @@ function AppRoutes() {
               <Dashboard />
             </ProtectedRoute>}
         />
+
+         <Route path="/create-bug" element={<CreateBug />} />
+
+         <Route path="/edit-bug/:id" element={<EditBug/>}/>
       </Routes>
     </BrowserRouter>
   );
