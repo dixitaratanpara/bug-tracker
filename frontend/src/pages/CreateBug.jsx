@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../style/auth.css";
+import { toast } from "react-toastify";
 
 function CreateBug() {
   const navigate = useNavigate();
@@ -25,13 +26,13 @@ function CreateBug() {
     try {
       await api.post("/bugs", formData);
 
-      alert("Bug Created Successfully");
+      toast.success("Bug Created Successfully");
 
       navigate("/dashboard");
     } catch (error) {
       console.log(error.response?.data);
 
-      alert(error.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -81,11 +82,14 @@ function CreateBug() {
               <option value="Medium">Medium</option>
               <option value="High">High</option>
             </select>
+
+          
           </div>
 
           <button type="submit">
             Create Bug
           </button>
+          
 
         </form>
 

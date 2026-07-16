@@ -15,27 +15,35 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
 
-     password: {
-      type: String,
-      required: true,
-      minlength: 6,
+    password: {
+        type: String,
+        required: true,
+        minlength: 6,
     },
 
-    role:{
-        type:String,
-        enum:["admin","developer","tester"],
-        default:"developer",
+    resetPasswordToken: {
+        type: String,
     },
 
-     avatar: {
-      type: String,
-      default: "",
+    resetPasswordExpire: {
+        type: Date,
+    },
+
+    role: {
+        type: String,
+        enum: ["admin", "developer", "tester"],
+        default: "developer",
+    },
+
+    avatar: {
+        type: String,
+        default: "",
     },
 },
 
-{
-    timestamps:true,
-}
+    {
+        timestamps: true,
+    }
 );
 
 const User = mongoose.model("User", userSchema);

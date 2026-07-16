@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../style/dashboard.css";
+import { toast } from "react-toastify";
+import BugCard from "../components/BugCard";
+import DeleteModal from "../components/DeleteModal";
+import DashboardHeader from "../components/DashboardHeader";
+import SearchFilter from "../components/SearchFilter";
+import StatesCards from "../components/StatsCards";
+import Pagination from "../components/Pagination";
 
 
 function Dashboard() {
@@ -9,6 +16,22 @@ function Dashboard() {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
+
+    const [search, setSearch] = useState("");
+
+    const [statusFilter, setStatusFilter] = useState("All");
+
+    const [priorityFilter, setPriorityFilter] = useState("All");
+
+    const [sortOrder, setSortOrder] = useState("Newest");
+
+    const [showModal, setShowModal] = useState(false);
+
+    const [selectedBugId, setSelectedBugId] = useState(null);
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const bugsPerPage = 6;
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -22,7 +45,7 @@ function Dashboard() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
-        alert("Logout Successful!!!");
+        toast.success("Logout Successful!!!");
 
         navigate("/login");
     };
@@ -38,118 +61,138 @@ function Dashboard() {
         catch (error) {
             console.log(error.response?.data);
         }
+       
     };
 
     useEffect(() => {
         fetchBugs();
     }, []);
 
-    const handleDelete = async (id) => {
-
-        const confrimDelete = window.confirm(
-            "Are you sure you want to delete this bug?"
-        );
-
-        if (!confrimDelete) return;
+    //handle delete
+    const handleDelete = async () => {
 
         try {
-            await api.delete(`/bugs/${id}`);
+            await api.delete(`/bugs/${selectedBugId}`);
 
-            alert("Bug Deleted Successfully");
+            toast.success("Bug Deleted Successfully");
 
             fetchBugs();
+
+            setShowModal(false);
+
+            setSelectedBugId(null);
         }
         catch (error) {
             console.log(error.response?.data);
 
-            alert(error.response?.data?.message || "Something wnt wrong");
+            toast.error(error.response?.data?.message || "Something wnt wrong");
         }
     }
 
+    const filteredBugs = bugs.filter((bug) => {
+        const matchesSearch =
+            bug.title.toLowerCase().includes(search.toLowerCase()) ||
+            bug.description.toLowerCase().includes(search.toLowerCase());
+
+        const matchesStatus =
+            statusFilter === "All" ||
+            bug.status === statusFilter;
+
+        const matchesPriority =
+            priorityFilter === "All" ||
+            bug.priority === priorityFilter;
+
+        return matchesSearch && matchesStatus && matchesPriority;
+    });
+
+    const sortedBugs = [...filteredBugs].sort((a, b) => {
+        if (sortOrder === "Newest") {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        } else {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+        }
+    });
+
+    
+
+        const lastBugIndex = currentPage * bugsPerPage;
+    const firstBugIndex = lastBugIndex - bugsPerPage;
+    const currentBugs = filteredBugs.slice(firstBugIndex, lastBugIndex);
+
+   
     return (
+
         <div className="dashboard">
+           
+            <DashboardHeader
+                user={user}
+                navigate={navigate}
+                handleLogout={handleLogout}
+            />
 
-            <div className="dashboard-header">
+            <StatesCards bugs={bugs} />
 
-                <div className="dashboard-title">
-                    <h1>🐞Bug Tracker Dashboard</h1>
-                    <p>Welcome,{user?.name}</p>
-                    <p>{user?.role}</p>
-                    <p>{user?.email}</p>
-                </div>
-
-                <div className="header-buttons">
-
-                    <button className="btn create-btn"
-                        onClick={() => navigate("/create-bug")}
-                    >+Create Bug</button>
-
-                    <button className="btn logout-btn"
-                        onClick={handleLogout}
-                    >LOGOUT</button>
-
-                </div>
-
-            </div>
-
-
-            <h2>My Bugs({bugs.length})</h2>
+            <SearchFilter
+                search={search}
+                setSearch={setSearch}
+                statusFilter={statusFilter}
+                setStatusFilter={setStatusFilter}
+                priorityFilter={priorityFilter}
+                setPriorityFilter={setPriorityFilter}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+            />
 
             {bugs.length === 0 ? (
-                <p>No Bugs Found</p>
+                <div className="empty-state">
+                    <h1>🐞</h1>
+                    <h2>No Bugs Found</h2>
+                    <p>Create your first bug or change your search/filter.</p>
+                    <button
+                        className="btn create-btn"
+                        onClick={() => navigate("/create-bug")}
+                    >
+                        + Create Bug
+                    </button>
+                </div>
+
+            ) : filteredBugs.length === 0 ? (
+                <h3 style={{
+                    textAlign: "center",
+                    marginTop: "30px",
+                }}>No matching bugs found 🔍</h3>
             ) : (
+
                 <div className="bug-list">
 
-                    {bugs.map((bug) => (
-                        <div className="bug-card" key={bug._id}>
-
-                            <h3>Bug Title:{bug.title}</h3>
-                            <p>Bug Descritiopn :{bug.description}</p>
-
-                            <div className="badges">
-                                <span className={`badge ${
-                                    bug.priority==="High"
-                                    ? "high"
-                                    :bug.priority==="Medium"
-                                    ?"medium"
-                                    :"low"
-                                }`}>
-                                    Bug Priority:{bug.priority}
-                                </span>
-
-                                <span className={`badge ${
-                                    bug.status==="Open"
-                                    ?"open"
-                                    :bug.status === "In Progress"
-                                    ?"progress"
-                                    :"resolved"
-                                }`}>
-                                    Bug Status:{bug.status}
-                                </span>
-
-                            </div>
-
-                            <div className="action">
-                                <button
-                                    className="btn edit-btn"
-                                    onClick={() => navigate(`/edit-bug/${bug._id}`)}
-                                >
-                                    Edit
-                                </button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button
-                                    className="btn delete-btn"
-                                    onClick={() => handleDelete(bug._id)}
-
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                            
-                        </div>
+                    {currentBugs.map((bug) => (
+                        <BugCard
+                            key={bug._id}
+                            bug={bug}
+                            navigate={navigate}
+                            setSelectedBugId={setSelectedBugId}
+                            setShowModal={setShowModal}
+                        />
                     ))}
                 </div>
             )}
+            {
+                <DeleteModal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    handleDelete={handleDelete}
+                />
+            }
+
+         
+
+           <Pagination
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+    totalItems={filteredBugs.length}
+    itemsPerPage={bugsPerPage}
+   
+/>
         </div>
 
     );

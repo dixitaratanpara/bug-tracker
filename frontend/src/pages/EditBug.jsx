@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams , useNavigate} from "react-router-dom";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 function EditBug() {
     const navigate = useNavigate();
@@ -51,14 +52,14 @@ function EditBug() {
             try {
                 await api.put(`/bugs/${id}`, formData);
 
-                alert("Bug Updated Successfully");
+                toast.success("Bug Updated Successfully");
 
                 navigate("/dashboard");
             } 
             catch (error) {
                 console.log(error.response?.data);
 
-                alert(error.response?.data?.message || "Something went wrong");
+                toast.error(error.response?.data?.message || "Something went wrong");
             }
         };
         if (!bug) {
@@ -123,6 +124,7 @@ function EditBug() {
                             <option value="In Progress">In Progress</option>
                             <option value="Resolved">Resolved</option>
                         </select>
+                        
                     </div>
 
                     <button type="submit">

@@ -7,6 +7,9 @@ import Dashboard from "../pages/Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 import CreateBug from "../pages/CreateBug";
 import EditBug from "../pages/EditBug";
+import NotFound from "../pages/NotFound";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
 
 function AppRoutes() {
   return (
@@ -18,7 +21,7 @@ function AppRoutes() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route 
+        <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
@@ -26,9 +29,20 @@ function AppRoutes() {
             </ProtectedRoute>}
         />
 
-         <Route path="/create-bug" element={<CreateBug />} />
+        <Route path="/create-bug" element={<CreateBug />} />
 
-         <Route path="/edit-bug/:id" element={<EditBug/>}/>
+        <Route path="/edit-bug/:id" element={<EditBug />} />
+
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+
+        <Route
+          path="/reset-password/:token"
+          element={<ResetPassword />}
+        />
+
+
       </Routes>
     </BrowserRouter>
   );

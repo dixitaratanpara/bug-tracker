@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../style/auth.css";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function Login() {
 
@@ -12,6 +14,8 @@ function Login() {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,6 +25,9 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
     try {
       const responce = await api.post("/auth/login", formData);
 
@@ -32,7 +39,7 @@ function Login() {
         JSON.stringify(responce.data.user)
       );
 
-      alert("Login Successful!");
+      toast.success("Login Successful");
 
       navigate("/dashboard");
 
@@ -47,7 +54,10 @@ function Login() {
     catch (error) {
       console.log(error.response?.data);
 
-      alert(error.response.data?.message || "Something went wrong");
+      toast.error(error.response.data?.message || "Something went wrong");
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -88,10 +98,18 @@ function Login() {
             />
           </div>
 
-          <button type="submit">
-            Login
+          <button type="submit"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Login"}
           </button>
 
+          <p style={{ marginTop: "15px" }}>
+            <Link to="/forgot-password">
+              Forgot Password?
+            </Link>
+          </p>
+          
         </form>
 
         <p className="bottom-text">
