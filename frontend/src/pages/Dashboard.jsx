@@ -169,6 +169,7 @@ function Dashboard() {
                         <BugCard
                             key={bug._id}
                             bug={bug}
+                            user={user}
                             navigate={navigate}
                             setSelectedBugId={setSelectedBugId}
                             setShowModal={setShowModal}

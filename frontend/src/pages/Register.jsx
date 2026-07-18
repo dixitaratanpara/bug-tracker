@@ -1,19 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../style/auth.css";
 import { toast } from "react-toastify";
 import { emailRegex, passwordRegex } from "../utils/validation";
+import { Link } from "react-router-dom";
 
 function Register() {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            navigate("/dashboard");
+        }
+
+    }, [navigate]);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
+        role: "Developer",
     });
+
+    const [role, setRole] = useState("Devloper");
 
     const handleChange = (e) => {
         setFormData({
@@ -53,6 +67,7 @@ function Register() {
                 name: "",
                 email: "",
                 password: "",
+                role: "Developer",
             });
 
         }
@@ -108,6 +123,19 @@ function Register() {
                         />
                     </div>
 
+                    <div className="from-group">
+                        <label>Role</label>
+                        <select name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                        >
+                            <option value="Developer">Developer</option>
+                            <option value="Tester">Tester</option>
+
+                        </select>
+
+                    </div>
+
                     <button type="submit">
                         Register
                     </button>
@@ -115,7 +143,10 @@ function Register() {
                 </form>
 
                 <p className="bottom-text">
-                    Already have an account? Login
+                    Already have an account?{" "}
+                    <Link to="/login">
+                        Login
+                    </Link>
                 </p>
             </div>
 

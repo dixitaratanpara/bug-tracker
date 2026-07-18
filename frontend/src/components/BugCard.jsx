@@ -1,4 +1,4 @@
-function BugCard({ bug, navigate, setSelectedBugId, setShowModal }) {
+function BugCard({ bug, user, navigate, setSelectedBugId, setShowModal }) {
 
     console.log("Bug=",bug);
     return (
@@ -43,13 +43,14 @@ function BugCard({ bug, navigate, setSelectedBugId, setShowModal }) {
             </div>
 
             <div className="action">
-
+                {user?.role !== "Tester" && (
                 <button
                     className="btn edit-btn"
                     onClick={() => navigate(`/edit-bug/${bug._id}`)}
                 >
                     Edit
                 </button>
+                )}
 
                 &nbsp;&nbsp;&nbsp;&nbsp;
 

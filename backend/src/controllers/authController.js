@@ -9,7 +9,7 @@ import sendEmail from "../utils/sendEmail.js";
 //registerUser 
 export const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, role } = req.body;
 
         //check required fields(validation)
         if (!name || !email || !password) {
@@ -47,10 +47,15 @@ export const registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         //create user 
+        const allowdRoles = ["Developer" , "Tester"];
+
         const user = await User.create({
             name,
             email,
             password: hashedPassword,
+            role:allowedRoles.includes(role)
+            ? role
+            :"Developer",
         });
 
         //Remove password from response

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../services/api";
+import { Link } from "react-router-dom";
+import "../style/auth.css";
+
 
 function ResetPassword() {
 
@@ -39,27 +42,41 @@ function ResetPassword() {
     return (
         <div className="auth-container">
 
-            <form
-                className="auth-form"
-                onSubmit={handleSubmit}
-            >
+            <div className="auth-card">
+
+                <h1>Bug Tracker</h1>
 
                 <h2>Reset Password</h2>
 
-                <input
-                    type="password"
-                    placeholder="Enter New Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                <form
+                    className="auth-form"
+                    onSubmit={handleSubmit}
+                >
 
-                <button type="submit">
-                    Reset Password
-                </button>
+                    <h2>Reset Password</h2>
 
-            </form>
+                    <div className="form-group">
+                        <label>New Password</label>
 
+                        <input
+                            type="password"
+                            placeholder="Enter New Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit">
+                        Reset Password
+                    </button>
+
+                    <p className="bottom-text">
+                        Remember your password?{" "}
+                        <a href="/login">Login</a>
+                    </p>
+
+                </form>
+            </div>
         </div>
     );
 }

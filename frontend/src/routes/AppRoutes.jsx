@@ -10,6 +10,7 @@ import EditBug from "../pages/EditBug";
 import NotFound from "../pages/NotFound";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
+import AdminUsers from "../pages/AdminUsers";
 
 function AppRoutes() {
   return (
@@ -29,9 +30,23 @@ function AppRoutes() {
             </ProtectedRoute>}
         />
 
-        <Route path="/create-bug" element={<CreateBug />} />
+       <Route
+    path="/create-bug"
+    element={
+        <ProtectedRoute>
+            <CreateBug />
+        </ProtectedRoute>
+    }
+/>
 
-        <Route path="/edit-bug/:id" element={<EditBug />} />
+       <Route
+    path="/edit-bug/:id"
+    element={
+        <ProtectedRoute>
+            <EditBug />
+        </ProtectedRoute>
+    }
+/>
 
         <Route path="*" element={<NotFound />} />
 
@@ -42,6 +57,14 @@ function AppRoutes() {
           element={<ResetPassword />}
         />
 
+      <Route
+    path="/admin/users"
+    element={
+        <ProtectedRoute>
+            <AdminUsers />
+        </ProtectedRoute>
+    }
+/>
 
       </Routes>
     </BrowserRouter>

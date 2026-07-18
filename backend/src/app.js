@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import bugRoutes from "./routes/bugRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use("/api/bugs",bugRoutes);
+app.use("/api/users", userRoutes);
 
 //test route
 app.get("/" ,(req,res)=>{
