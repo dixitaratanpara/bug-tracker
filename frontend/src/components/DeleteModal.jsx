@@ -1,8 +1,8 @@
-import User from "../../../backend/src/models/User";
 
-function DeleteModal({showModal,setShowModal,handleDelete,}) {
+function DeleteModal({showModal,setShowModal,handleDelete}) {
 
     if (!showModal) return null;
+
     return (
 
 
@@ -24,14 +24,12 @@ function DeleteModal({showModal,setShowModal,handleDelete,}) {
                         >
                             Cancel
                         </button>
-                      {User?.role ==="Admin" && (
-                        <button
-                            className="delete-btn-modal"
-                            onClick={handleDelete}
-                        >
-                            Delete
-                        </button>
-                      )}
+                      <button
+    className="delete-btn-modal"
+    onClick={handleDelete}
+>
+    Delete
+</button>
                     </div>
 
                 </div>

@@ -16,11 +16,11 @@ function DashboardHeader({
                 </div>
 
                 <div className="header-buttons">
-
+{(user?.role === "Admin" || user?.role === "Developer") && (
                     <button className="btn create-btn"
                         onClick={() => navigate("/create-bug")}
                     >+Create Bug</button>
-
+)}
                     <button className="btn logout-btn"
                         onClick={handleLogout}
                     >LOGOUT</button>

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import api from "../services/api";
 import { Link } from "react-router-dom";
 import "../style/auth.css";
+import { passwordRegex } from "../utils/validation";
 
 
 function ResetPassword() {
@@ -13,6 +14,8 @@ function ResetPassword() {
     const navigate = useNavigate();
 
     const [password, setPassword] = useState("");
+
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
 
@@ -24,6 +27,13 @@ function ResetPassword() {
                 `/auth/reset-password/${token}`,
                 { password }
             );
+            
+                    if (!passwordRegex.test(password)) {
+                        toast.error(
+                            "Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character."
+                        );
+                        return;
+                    }
 
             toast.success(response.data.message);
 
@@ -35,6 +45,9 @@ function ResetPassword() {
                 error.response?.data?.message || "Something went wrong"
             );
 
+        }
+        finally {
+            setLoading(false);
         }
 
     };
@@ -53,7 +66,6 @@ function ResetPassword() {
                     onSubmit={handleSubmit}
                 >
 
-                    <h2>Reset Password</h2>
 
                     <div className="form-group">
                         <label>New Password</label>
@@ -66,10 +78,11 @@ function ResetPassword() {
                             required
                         />
                     </div>
-                    <button type="submit">
-                        Reset Password
-                    </button>
 
+                    <button type="submit" disabled={loading}>
+                        {loading ? "Loading..." : "Reset Password"}
+                    </button>
+                    
                     <p className="bottom-text">
                         Remember your password?{" "}
                         <a href="/login">Login</a>

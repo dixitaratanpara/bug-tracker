@@ -39,9 +39,9 @@ export const createBug = async (req, res) => {
 //GET Bug
 export const getAllBugs = async (req, res) => {
     try {
-        const bugs = await Bug.find({ createdBy: req.user.id }).sort({
-            createdAt: -1,
-        });
+         const bugs = await Bug.find()
+            .populate("createdBy", "name email role")
+            .sort({ createdAt: -1 });
 
         return res.status(200).json({
             success: true,
@@ -62,11 +62,8 @@ export const getAllBugs = async (req, res) => {
 //GET Single Bug
 export const getSingleBug = async (req, res) => {
     try {
-        const bug = await Bug.findOne({
-            _id: req.params.id,
-            createdBy: req.user.id,
-        });
-
+        const bug = await Bug.findById(req.params.id);
+            
         if (!bug) {
             return res.status(404).json({
                 success: false,
@@ -94,11 +91,8 @@ export const updateBug = async (req, res) => {
     try {
         const { title, description, priority, status } = req.body;
 
-        const bug = await Bug.findOneAndUpdate(
-            {
-                _id: req.params.id,
-                createdBy: req.user.id,
-            },
+        const bug = await Bug.findByIdAndUpdate(
+            req.params.id,
             {
                 title,
                 description,
@@ -136,10 +130,8 @@ export const updateBug = async (req, res) => {
 //Delete Bug
 export const deleteBug = async (req, res) => {
     try {
-        const bug = await Bug.findOneAndDelete({
-            _id: req.params.id,
-            createdBy: req.user.id,
-        });
+        const bug = await Bug.findByIdAndDelete(req.params.id);
+
         if (!bug) {
             return res.status(404).json({
                 success: false,

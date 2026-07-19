@@ -20,6 +20,8 @@ const authMiddleware = (req,res, next)=>{
 
         //Store user id in request 
         req.user= decoded;
+
+        console.log("User Role:", req.user.role);
         
         next();
     }

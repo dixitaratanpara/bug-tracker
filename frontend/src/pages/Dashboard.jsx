@@ -61,7 +61,7 @@ function Dashboard() {
         catch (error) {
             console.log(error.response?.data);
         }
-       
+
     };
 
     useEffect(() => {
@@ -113,17 +113,17 @@ function Dashboard() {
         }
     });
 
-    
 
-        const lastBugIndex = currentPage * bugsPerPage;
+
+    const lastBugIndex = currentPage * bugsPerPage;
     const firstBugIndex = lastBugIndex - bugsPerPage;
     const currentBugs = filteredBugs.slice(firstBugIndex, lastBugIndex);
 
-   
+
     return (
 
         <div className="dashboard">
-           
+
             <DashboardHeader
                 user={user}
                 navigate={navigate}
@@ -182,18 +182,19 @@ function Dashboard() {
                     showModal={showModal}
                     setShowModal={setShowModal}
                     handleDelete={handleDelete}
+                    
                 />
             }
 
-         
 
-           <Pagination
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-    totalItems={filteredBugs.length}
-    itemsPerPage={bugsPerPage}
-   
-/>
+
+            <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalItems={filteredBugs.length}
+                itemsPerPage={bugsPerPage}
+
+            />
         </div>
 
     );

@@ -1,6 +1,6 @@
 function BugCard({ bug, user, navigate, setSelectedBugId, setShowModal }) {
 
-    console.log("Bug=",bug);
+    console.log("Bug=", bug);
     return (
         <div className="bug-card">
 
@@ -17,25 +17,23 @@ function BugCard({ bug, user, navigate, setSelectedBugId, setShowModal }) {
             <div className="badges">
 
                 <span
-                    className={`badge ${
-                        bug.priority === "High"
+                    className={`badge ${bug.priority === "High"
                             ? "high"
                             : bug.priority === "Medium"
-                            ? "medium"
-                            : "low"
-                    }`}
+                                ? "medium"
+                                : "low"
+                        }`}
                 >
                     Bug Priority: {bug.priority}
                 </span>
 
                 <span
-                    className={`badge ${
-                        bug.status === "Open"
+                    className={`badge ${bug.status === "Open"
                             ? "open"
                             : bug.status === "In Progress"
-                            ? "progress"
-                            : "resolved"
-                    }`}
+                                ? "progress"
+                                : "resolved"
+                        }`}
                 >
                     Bug Status: {bug.status}
                 </span>
@@ -44,25 +42,26 @@ function BugCard({ bug, user, navigate, setSelectedBugId, setShowModal }) {
 
             <div className="action">
                 {user?.role !== "Tester" && (
-                <button
-                    className="btn edit-btn"
-                    onClick={() => navigate(`/edit-bug/${bug._id}`)}
-                >
-                    Edit
-                </button>
+                    <button
+                        className="btn edit-btn"
+                        onClick={() => navigate(`/edit-bug/${bug._id}`)}
+                    >
+                        Edit
+                    </button>
                 )}
 
                 &nbsp;&nbsp;&nbsp;&nbsp;
 
-                <button
-                    className="btn delete-btn"
-                    onClick={() => {
-                        setSelectedBugId(bug._id);
-                        setShowModal(true);
-                    }}
-                >
-                    Delete
-                </button>
+                {user?.role === "Admin" && (
+                    <button className="btn delete-btn"
+                        onClick={() => {
+                            setSelectedBugId(bug._id);
+                            setShowModal(true);
+                        }}
+                    >
+                        Delete
+                    </button>
+                )}
 
             </div>
 

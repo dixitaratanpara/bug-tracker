@@ -59,7 +59,7 @@ function Register() {
 
             console.log(responce.data);
 
-            alert("Registration Successful!");
+            toast.success("Registration Successful!");
 
             navigate("/login");
 
