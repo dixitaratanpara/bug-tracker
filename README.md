@@ -106,14 +106,6 @@ bug-tracker/
 
 ## ⚙ Installation
 
-### Clone Repository
-
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git
-```
-
----
-
 ### Backend
 
 ```bash
@@ -188,31 +180,12 @@ DELETE  /api/bugs/:id
 
 ---
 
-## 📷 Screenshots
-
-You can add screenshots here after deployment.
-
-Example:
-
-```
-Dashboard Screenshot
-
-Login Page
-
-Profile Page
-
-Create Bug Page
-```
-
----
-
 ## 🔮 Future Improvements
 
 - Assign Bugs to Developers
 - Bug Comments
 - Image/File Attachments
 - Email Notification on Status Change
-- Activity Timeline
 - Dark Mode
 - User Avatar Upload
 
@@ -239,10 +212,6 @@ Create Bug Page
 
 **Dixita Ratanpara**
 
-GitHub:
-https://github.com/YOUR_GITHUB_USERNAME
-
----
 
 ## 📄 License
 
