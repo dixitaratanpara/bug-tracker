@@ -9,7 +9,7 @@ import DashboardHeader from "../components/DashboardHeader";
 import SearchFilter from "../components/SearchFilter";
 import StatesCards from "../components/StatsCards";
 import Pagination from "../components/Pagination";
-
+import Footer from "../components/Footer";
 
 function Dashboard() {
 
@@ -182,11 +182,9 @@ function Dashboard() {
                     showModal={showModal}
                     setShowModal={setShowModal}
                     handleDelete={handleDelete}
-                    
+
                 />
             }
-
-
 
             <Pagination
                 currentPage={currentPage}
@@ -195,6 +193,7 @@ function Dashboard() {
                 itemsPerPage={bugsPerPage}
 
             />
+            <Footer />
         </div>
 
     );

@@ -1,27 +1,30 @@
 function BugCard({ bug, user, navigate, setSelectedBugId, setShowModal }) {
 
     console.log("Bug=", bug);
+
     return (
         <div className="bug-card">
 
             <p>
                 Created: {new Date(bug.createdAt).toLocaleDateString()}
-                &nbsp;&nbsp;
+                &nbsp;
                 Updated: {new Date(bug.updatedAt).toLocaleDateString()}
             </p>
+            
+            <br></br>
 
             <h3>Bug Title: {bug.title}</h3>
-
+            &nbsp;
             <p>Bug Description: {bug.description}</p>
 
             <div className="badges">
 
                 <span
                     className={`badge ${bug.priority === "High"
-                            ? "high"
-                            : bug.priority === "Medium"
-                                ? "medium"
-                                : "low"
+                        ? "high"
+                        : bug.priority === "Medium"
+                            ? "medium"
+                            : "low"
                         }`}
                 >
                     Bug Priority: {bug.priority}
@@ -29,10 +32,10 @@ function BugCard({ bug, user, navigate, setSelectedBugId, setShowModal }) {
 
                 <span
                     className={`badge ${bug.status === "Open"
-                            ? "open"
-                            : bug.status === "In Progress"
-                                ? "progress"
-                                : "resolved"
+                        ? "open"
+                        : bug.status === "In Progress"
+                            ? "progress"
+                            : "resolved"
                         }`}
                 >
                     Bug Status: {bug.status}

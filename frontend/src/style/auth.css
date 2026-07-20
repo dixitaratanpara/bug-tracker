@@ -112,3 +112,46 @@
 .bottom-text span:hover {
   text-decoration: underline;
 }
+
+.profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.avatar-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info {
+    margin: 20px 0;
+}
+
+.profile-info p {
+    margin: 12px 0;
+    font-size: 16px;
+}
+
+.profile-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.profile-buttons button {
+    flex: 1;
+}
+
+.profile-btn {
+    background-color: #2563eb;
+    color: white;
+}

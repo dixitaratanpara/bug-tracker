@@ -83,13 +83,13 @@ function CreateBug() {
               <option value="High">High</option>
             </select>
 
-          
+
           </div>
 
           <button type="submit">
             Create Bug
           </button>
-          
+
 
         </form>
 

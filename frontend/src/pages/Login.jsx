@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../style/auth.css";
@@ -9,13 +9,13 @@ function Login() {
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if(token){
+    if (token) {
       navigate("/dashboard");
     }
-  },[navigate]);
+  }, [navigate]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -117,11 +117,11 @@ function Login() {
               Forgot Password?
             </Link>
           </p>
-          
+
         </form>
 
         <p className="bottom-text">
-          Don't have an account?{" "} 
+          Don't have an account?{" "}
           <Link to="/register">Register</Link>
         </p>
 

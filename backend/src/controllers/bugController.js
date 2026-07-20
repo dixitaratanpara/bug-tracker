@@ -1,7 +1,7 @@
 import Bug from "../models/Bug.js";
 
 
-//create BuG
+//create Bug
 export const createBug = async (req, res) => {
     try {
         const { title, description, priority } = req.body;
@@ -39,7 +39,7 @@ export const createBug = async (req, res) => {
 //GET Bug
 export const getAllBugs = async (req, res) => {
     try {
-         const bugs = await Bug.find()
+        const bugs = await Bug.find()
             .populate("createdBy", "name email role")
             .sort({ createdAt: -1 });
 
@@ -63,7 +63,7 @@ export const getAllBugs = async (req, res) => {
 export const getSingleBug = async (req, res) => {
     try {
         const bug = await Bug.findById(req.params.id);
-            
+
         if (!bug) {
             return res.status(404).json({
                 success: false,

@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
 
-const authMiddleware = (req,res, next)=>{
-    try{
+const authMiddleware = (req, res, next) => {
+    try {
         //get token from request header
         const authHeader = req.headers.authorization;
 
-        if(!authHeader || !authHeader.startsWith("Bearer")){
+        if (!authHeader || !authHeader.startsWith("Bearer")) {
             return res.status(401).json({
-                success:false,
-                message:"Access denied. No token provided.",
+                success: false,
+                message: "Access denied. No token provided.",
             });
         }
 
@@ -16,19 +16,19 @@ const authMiddleware = (req,res, next)=>{
         const token = authHeader.split(" ")[1];
 
         //verify token
-       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         //Store user id in request 
-        req.user= decoded;
+        req.user = decoded;
 
         console.log("User Role:", req.user.role);
-        
+
         next();
     }
-    catch(error){
+    catch (error) {
         return res.status(401).json({
-            success:false,
-            message:"Invalid or expired token",
+            success: false,
+            message: "Invalid or expired token",
         });
     }
 };

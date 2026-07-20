@@ -1,4 +1,5 @@
-function StatesCards({bugs}){
+function StatesCards({bugs})
+{
 
     const totalBugs = bugs.length;
     const openBugs = bugs.filter((bugs) => bugs.status === "Open").length;

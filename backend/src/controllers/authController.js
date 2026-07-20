@@ -4,9 +4,10 @@ import jwt from "jsonwebtoken";
 import { emailRegex, passwordRegex } from "../utils/validation.js";
 import crypto from "crypto";
 import sendEmail from "../utils/sendEmail.js";
+import Bug from "../models/Bug.js";
 
 
-//registerUser 
+//RegisterUser 
 export const registerUser = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
@@ -26,6 +27,7 @@ export const registerUser = async (req, res) => {
             });
         }
 
+        //password  validation
         if (!passwordRegex.test(password)) {
             return res.status(400).json({
                 message:
@@ -46,7 +48,7 @@ export const registerUser = async (req, res) => {
         //hash password 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        //create user 
+        //create user role
         const allowedRoles = ["Developer", "Tester"];
 
         const user = await User.create({
@@ -85,6 +87,7 @@ export const registerUser = async (req, res) => {
     }
 };
 
+
 //login User
 export const loginUser = async (req, res) => {
 
@@ -119,9 +122,10 @@ export const loginUser = async (req, res) => {
             });
         }
 
+        //token 
         const token = jwt.sign({
             id: user._id,
-            role:user.role,
+            role: user.role,
         },
             process.env.JWT_SECRET, {
             expiresIn: "7d",
@@ -155,7 +159,7 @@ export const loginUser = async (req, res) => {
 //get user
 export const getCurrentUser = async (req, res) => {
     try {
-        const user = await User.findById(req.userId).select("-password");
+        const user = await User.findById(req.user.id).select("-password");
 
         if (!user) {
             return res.status(404).json({
@@ -164,9 +168,17 @@ export const getCurrentUser = async (req, res) => {
             });
         }
 
+        //get total bug
+        const totalBugs = await Bug.countDocuments({
+            createdBy: user._id,
+        });
+
         return res.status(200).json({
             success: true,
-            user,
+            user: {
+                ...user.toObject(),
+                totalBugs,
+            },
         });
 
     }
@@ -286,5 +298,118 @@ export const resetPassword = async (req, res) => {
         return res.status(500).json({
             message: error.message,
         });
+    }
+};
+
+//updateprofile
+export const updateProfile = async (req, res) => {
+    try {
+
+        const { name } = req.body;
+
+        if (!name) {
+            return res.status(400).json({
+                success: false,
+                message: "Name is required",
+            });
+        }
+
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        user.name = name;
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                avatar: user.avatar,
+            },
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
+
+    }
+};
+
+//change Profile password
+export const changePassword = async (req, res) => {
+    try {
+
+        const { currentPassword, newPassword } = req.body;
+
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required",
+            });
+        }
+
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        const isMatch = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!isMatch) {
+            return res.status(400).json({
+                success: false,
+                message: "Current password is incorrect",
+            });
+        }
+
+        if (!passwordRegex.test(newPassword)) {
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character.",
+            });
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Password changed successfully",
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
+
     }
 };

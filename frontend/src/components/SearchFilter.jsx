@@ -3,14 +3,16 @@ function SearchFilter({
     setSearch,
     statusFilter,
     setStatusFilter,
-     priorityFilter,
+    priorityFilter,
     setPriorityFilter,
     sortOrder,
     setSortOrder,
 }) {
     return (
+
         <>
             <div style={{ marginBottom: "20px" }}>
+
                 <input type="text"
                     placeholder="🔍 Search Bugs..."
                     value={search}
@@ -23,6 +25,7 @@ function SearchFilter({
                         border: "1px solid #ccc",
                     }}
                 />
+
             </div>
 
             <div style={{ marginBottom: "20px" }}>
@@ -60,6 +63,7 @@ function SearchFilter({
                     <option value="Medium">Medium</option>
 
                     <option value="Low">Low</option>
+
                 </select>
 
                 <select
@@ -74,6 +78,7 @@ function SearchFilter({
                     <option value="Newest">Newest First</option>
 
                     <option value="Oldest">Oldest First</option>
+
                 </select>
 
 

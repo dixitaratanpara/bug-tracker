@@ -11,6 +11,9 @@ import NotFound from "../pages/NotFound";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import AdminUsers from "../pages/AdminUsers";
+import Profile from "../pages/Profile";
+import EditProfile from "../pages/EditProfile";
+import ChangePassword from "../pages/ChangePassword";
 
 function AppRoutes() {
   return (
@@ -30,23 +33,23 @@ function AppRoutes() {
             </ProtectedRoute>}
         />
 
-       <Route
-    path="/create-bug"
-    element={
-        <ProtectedRoute>
-            <CreateBug />
-        </ProtectedRoute>
-    }
-/>
+        <Route
+          path="/create-bug"
+          element={
+            <ProtectedRoute>
+              <CreateBug />
+            </ProtectedRoute>
+          }
+        />
 
-       <Route
-    path="/edit-bug/:id"
-    element={
-        <ProtectedRoute>
-            <EditBug />
-        </ProtectedRoute>
-    }
-/>
+        <Route
+          path="/edit-bug/:id"
+          element={
+            <ProtectedRoute>
+              <EditBug />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="*" element={<NotFound />} />
 
@@ -57,14 +60,40 @@ function AppRoutes() {
           element={<ResetPassword />}
         />
 
-      <Route
-    path="/Admin/users"
-    element={
-        <ProtectedRoute>
-            <AdminUsers />
-        </ProtectedRoute>
-    }
-/>
+        <Route
+          path="/Admin/users"
+          element={
+            <ProtectedRoute>
+              <AdminUsers />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/edit-profile"
+          element={
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/change-password"
+          element={
+            <ProtectedRoute>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </BrowserRouter>

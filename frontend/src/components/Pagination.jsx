@@ -1,12 +1,8 @@
-function Pagination({
-    currentPage,
-    setCurrentPage,
-    totalItems,
-    itemsPerPage,
+function Pagination({currentPage,setCurrentPage,totalItems,itemsPerPage,}) 
 
-}) {
+{
+
     const totalPages = Math.ceil(totalItems / itemsPerPage);
-
 
     return (
 

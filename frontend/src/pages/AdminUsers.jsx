@@ -22,7 +22,7 @@ function AdminUsers() {
             await api.put(`/users/${id}/role`, { role });
 
             toast.success("Role Updated Successfully");
-            
+
             fetchUsers();
 
         }

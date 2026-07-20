@@ -40,47 +40,47 @@ function ForgotPassword() {
     };
 
     return (
-    <div className="auth-container">
+        <div className="auth-container">
 
-        <div className="auth-card">
+            <div className="auth-card">
 
-            <h1>Bug Tracker</h1>
+                <h1>Bug Tracker</h1>
 
-            <h2>Forgot Password</h2>
+                <h2>Forgot Password</h2>
 
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
-                <div className="form-group">
+                    <div className="form-group">
 
-                    <label>Email</label>
+                        <label>Email</label>
 
-                    <input
-                        type="email"
-                        placeholder="Enter Your Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                        <input
+                            type="email"
+                            placeholder="Enter Your Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
 
-                </div>
+                    </div>
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading ? "Sending..." : "Send Reset Link"}
-                </button>
+                    <button
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading ? "Sending..." : "Send Reset Link"}
+                    </button>
 
-            </form>
+                </form>
 
-            <p className="bottom-text">
-                Remember your password?{" "}
-                <Link to="/login">Login</Link>
-            </p>
+                <p className="bottom-text">
+                    Remember your password?{" "}
+                    <Link to="/login">Login</Link>
+                </p>
+
+            </div>
 
         </div>
-
-    </div>
-);
+    );
 }
 export default ForgotPassword;
