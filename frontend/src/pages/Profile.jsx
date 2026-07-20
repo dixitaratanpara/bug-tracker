@@ -16,7 +16,10 @@ function Profile() {
             const response = await api.get("/auth/me");
             setUser(response.data.user);
         } catch (error) {
-            console.log(error.response?.data);
+           catch (error) {
+                console.log(error.response?.data);
+                alert(error.response?.data?.message);
+            }
         }
     };
 
@@ -24,9 +27,7 @@ function Profile() {
         return <h2>Loading...</h2>;
     }
 
-    return 
-    (
-
+    return (
         <div className="auth-container">
 
             <div className="auth-card">
@@ -64,14 +65,14 @@ function Profile() {
                         Edit Profile
                     </button>
 
-                    <button  onClick={() => navigate("/change-password")}>
+                    <button onClick={() => navigate("/change-password")}>
                         Change Password
                     </button>
 
                 </div>
 
             </div>
-            
+
         </div>
     );
 }
