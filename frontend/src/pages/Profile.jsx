@@ -15,12 +15,12 @@ function Profile() {
         try {
             const response = await api.get("/auth/me");
             setUser(response.data.user);
-        } catch (error) {
+        } 
            catch (error) {
                 console.log(error.response?.data);
                 alert(error.response?.data?.message);
             }
-        }
+        
     };
 
     if (!user) {
