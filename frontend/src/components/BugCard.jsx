@@ -10,12 +10,18 @@ function BugCard({ bug, user, navigate, setSelectedBugId, setShowModal }) {
                 &nbsp;
                 Updated: {new Date(bug.updatedAt).toLocaleDateString()}
             </p>
-            
+
             <br></br>
 
             <h3>Bug Title: {bug.title}</h3>
             &nbsp;
-            <p>Bug Description: {bug.description}</p>
+            <p>
+                <strong>Bug Description:</strong> {bug.description}      
+            </p>
+            &nbsp;
+            <p>
+                <strong>Project:</strong> {bug.projectName || "N/A"}
+            </p>
 
             <div className="badges">
 

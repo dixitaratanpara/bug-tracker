@@ -13,6 +13,7 @@ function EditBug() {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
+        projectName: "",
         priority: "",
         status: "",
     });
@@ -26,6 +27,7 @@ function EditBug() {
             setFormData({
                 title: response.data.bug.title,
                 description: response.data.bug.description,
+                projectName: response.data.bug.projectName || "",
                 priority: response.data.bug.priority,
                 status: response.data.bug.status,
             });
@@ -95,6 +97,18 @@ function EditBug() {
                             value={formData.description}
                             onChange={handleChange}
                             rows="5"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Project Name</label>
+
+                        <input
+                            type="text"
+                            name="projectName"
+                            value={formData.projectName}
+                            onChange={handleChange}
+                            placeholder="Enter project name"
                         />
                     </div>
 

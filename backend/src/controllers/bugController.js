@@ -4,18 +4,19 @@ import Bug from "../models/Bug.js";
 //create Bug
 export const createBug = async (req, res) => {
     try {
-        const { title, description, priority } = req.body;
+        const { title, description,projectName,priority } = req.body;
 
-        if (!title || !description) {
+        if (!title || !description || !projectName) {
             return res.status(400).json({
                 success: false,
-                message: "Title and Description are requried",
+                message: "Title and Description and Project Name are requried",
             });
         }
 
         const bug = await Bug.create({
             title,
             description,
+            projectName,
             priority,
             createdBy: req.user.id,
         });
@@ -89,13 +90,14 @@ export const getSingleBug = async (req, res) => {
 //Update Bug
 export const updateBug = async (req, res) => {
     try {
-        const { title, description, priority, status } = req.body;
+        const { title, description,projectName, priority, status } = req.body;
 
         const bug = await Bug.findByIdAndUpdate(
             req.params.id,
             {
                 title,
                 description,
+                projectName,
                 priority,
                 status,
             },

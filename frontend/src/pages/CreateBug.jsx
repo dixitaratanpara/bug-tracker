@@ -10,6 +10,7 @@ function CreateBug() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    projectName: "",
     priority: "Medium",
   });
 
@@ -67,6 +68,18 @@ function CreateBug() {
               placeholder="Enter bug description"
               rows="5"
               required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Project Name</label>
+
+            <input
+              type="text"
+              name="projectName"
+              value={formData.projectName}
+              onChange={handleChange}
+              placeholder="Enter project name"
             />
           </div>
 
