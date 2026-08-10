@@ -80,6 +80,7 @@ function CreateBug() {
               value={formData.projectName}
               onChange={handleChange}
               placeholder="Enter project name"
+              required
             />
           </div>
 

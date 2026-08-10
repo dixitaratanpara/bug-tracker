@@ -109,6 +109,7 @@ function EditBug() {
                             value={formData.projectName}
                             onChange={handleChange}
                             placeholder="Enter project name"
+                            required
                         />
                     </div>
 

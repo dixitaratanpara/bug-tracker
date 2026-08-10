@@ -4,7 +4,7 @@ import Bug from "../models/Bug.js";
 //create Bug
 export const createBug = async (req, res) => {
     try {
-        const { title, description,projectName,priority } = req.body;
+        const { title, description, projectName,priority } = req.body;
 
         if (!title || !description || !projectName) {
             return res.status(400).json({

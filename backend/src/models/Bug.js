@@ -14,10 +14,12 @@ const bugSchema = new mongoose.Schema(
         required:true,
         trim:true,
     },
+
     projectName: {
     type: String,
     required: true,
     },
+    
     priority:{
         type:String,
         enum:["Low","Medium","High"],
