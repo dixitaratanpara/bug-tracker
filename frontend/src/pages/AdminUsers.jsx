@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
+import "../style/AdminUsers.css";
+import { useNavigate } from "react-router-dom";
 
 function AdminUsers() {
+
+    const navigate = useNavigate();
 
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async () => {
         try {
             const response = await api.get("/users");
+
             setUsers(response.data.users);
         }
         catch (error) {
@@ -23,7 +28,9 @@ function AdminUsers() {
 
             toast.success("Role Updated Successfully");
 
-            fetchUsers();
+            // fetchUsers();
+
+            navigate("/dashboard");
 
         }
         catch (error) {
@@ -40,16 +47,37 @@ function AdminUsers() {
     }, []);
 
     return (
-        <div>
+        <div className="admin-users-page">
 
-            <h2>Manage Users</h2>
+            <div className="admin-users-header">
 
-            {users.map((user) => (
+                <h2>Manage Users</h2>
+                 <p>Manage developer and tester roles</p>
 
-                <div key={user._id}>
+            </div>
 
-                    <h3>{user.name}</h3>
-                    <p>{user.email}</p>
+             <div className="users-list">
+
+                 {users.map((user) => (
+                      <div className="user-card"
+                            key={user._id}>
+                            
+                             <div className="user-info">
+                                <div className="user-avatar">
+                                    {user.name.charAt(0).toUpperCase()}
+                                </div>
+
+                                <div>
+                            <h3>{user.name}</h3>
+                            <p>{user.email}</p>
+                        </div>
+
+             </div>
+
+             <div className="user-role">
+
+            <label>Role</label>
+
                     <select
                         value={user.role}
                         onChange={(e) =>
@@ -72,9 +100,13 @@ function AdminUsers() {
 
                 </div>
 
+                  </div>
+
             ))}
 
         </div>
+
+          </div>
     );
 }
 

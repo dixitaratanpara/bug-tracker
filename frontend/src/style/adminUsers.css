@@ -1,0 +1,213 @@
+/* ========================= */
+/* Admin Users Page */
+/* ========================= */
+
+.admin-users-page {
+    min-height: 100vh;
+    padding: 40px;
+    background: #f5f7fb;
+}
+
+/* Header */
+
+.admin-users-header {
+    max-width: 1000px;
+    margin: 0 auto 30px;
+}
+
+.admin-users-header h2 {
+    margin: 0;
+    font-size: 30px;
+    color: #222;
+}
+
+.admin-users-header p {
+    margin-top: 8px;
+    color: #777;
+    font-size: 15px;
+}
+
+/* Users List */
+
+.users-list {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* User Card */
+
+.user-card {
+    background: white;
+    padding: 20px 24px;
+
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+    transition: 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-2px);
+}
+
+/* User Information */
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.user-info h3 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    color: #222;
+}
+
+.user-info p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+}
+
+/* Role */
+
+.user-role {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-role label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.user-role select {
+    min-width: 130px;
+
+    padding: 9px 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    background: white;
+
+    font-size: 14px;
+    cursor: pointer;
+
+    outline: none;
+}
+
+.user-role select:focus {
+    border-color: #2563eb;
+}
+
+/* ========================= */
+/* Tablet (768px) */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+    .admin-users-page {
+        padding: 30px 20px;
+    }
+
+    .admin-users-header h2 {
+        font-size: 26px;
+    }
+
+    .user-card {
+        padding: 18px;
+    }
+
+}
+
+/* ========================= */
+/* Mobile (480px) */
+/* ========================= */
+
+@media (max-width: 480px) {
+
+    .admin-users-page {
+        padding: 20px 12px;
+    }
+
+    .admin-users-header {
+        margin-bottom: 20px;
+    }
+
+    .admin-users-header h2 {
+        font-size: 23px;
+    }
+
+    .admin-users-header p {
+        font-size: 13px;
+    }
+
+    .user-card {
+        padding: 15px;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .user-info {
+        gap: 12px;
+    }
+
+    .user-avatar {
+        width: 42px;
+        height: 42px;
+        font-size: 17px;
+    }
+
+    .user-info h3 {
+        font-size: 15px;
+    }
+
+    .user-info p {
+        font-size: 12px;
+        word-break: break-word;
+    }
+
+    .user-role {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+
+    .user-role select {
+        width: 100%;
+    }
+
+}

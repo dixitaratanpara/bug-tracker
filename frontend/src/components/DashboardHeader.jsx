@@ -1,46 +1,56 @@
 function DashboardHeader({ user, navigate, handleLogout, }) {
     return (
+        <>
+            <div className="dashboard-header">
 
-        <div className="dashboard-header">
+                <div className="dashboard-title">
 
-            <div className="dashboard-title">
+                    <h1>🐞Bug Tracker Dashboard</h1>
 
-                <h1>🐞Bug Tracker Dashboard</h1>
+                    <p>Welcome,{user?.name}</p>
+                    <p>{user?.role}</p>
+                    <p>{user?.email}</p><br></br>
 
-                <p>Welcome,{user?.name}</p>
-                <p>{user?.role}</p>
-                <p>{user?.email}</p><br></br>
+                    <button
+                        className="btn profile-btn"
+                        onClick={() => navigate("/profile")}
+                    >
+                        My Profile
+                    </button>
 
-                <button
-                    className="btn profile-btn"
-                    onClick={() => navigate("/profile")}
-                >
-                    My Profile
-                </button>
+                </div>
+
+                <div className="header-buttons">
+
+                    {(user?.role === "Admin" || user?.role === "Developer") && (
+                        <button
+                            className="btn create-btn"
+                            onClick={() => navigate("/create-bug")}
+                        >
+                            +Create Bug
+                        </button>
+                    )}
+
+                    <button
+                        className="btn logout-btn"
+                        onClick={handleLogout}
+                    >
+                        LOGOUT
+                    </button>
+
+                </div>
 
             </div>
-
-            <div className="header-buttons">
-
-                {(user?.role === "Admin" || user?.role === "Developer") && (
+            <div>
+                {user?.role === "Admin" && (
                     <button
-                        className="btn create-btn"
-                        onClick={() => navigate("/create-bug")}
-                    >
-                        +Create Bug
+                        className="btn logout-btn"
+                        onClick={() => navigate("/admin/users")}>
+                        Manage User
                     </button>
                 )}
-
-                <button
-                    className="btn logout-btn"
-                    onClick={handleLogout}
-                >
-                    LOGOUT
-                </button>
-
             </div>
-
-        </div>
+        </>
     );
 }
 export default DashboardHeader;
