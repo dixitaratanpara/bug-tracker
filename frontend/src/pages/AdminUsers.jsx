@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
-import "../style/AdminUsers.css";
+import "../style/adminUsers.css";
 import { useNavigate } from "react-router-dom";
 
 function AdminUsers() {
