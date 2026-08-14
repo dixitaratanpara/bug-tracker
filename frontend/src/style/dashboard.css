@@ -62,6 +62,26 @@ body{
     box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
+.assign-section{
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+}
+
+.assign-section select{
+    flex:1;
+    padding:10px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:white;
+    cursor:pointer;
+}
+
+.assign-btn{
+    background:#2563eb;
+    color:white;
+}
+
 .bug-card h3{
     margin-top:0;
 }

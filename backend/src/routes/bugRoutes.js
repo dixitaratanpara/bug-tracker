@@ -1,5 +1,5 @@
 import express from "express";
-import { createBug, getAllBugs, getSingleBug, updateBug ,deleteBug } from "../controllers/bugController.js";
+import { createBug, getAllBugs, getSingleBug, updateBug ,deleteBug, assignBug} from "../controllers/bugController.js";
 import authMiddleware from "../middleware/authMIddleware.js";
 import authorizeRole from "../middleware/roleMiddleware.js";
 
@@ -18,6 +18,9 @@ router.get("/:id", authMiddleware, getSingleBug);
 
 router.put("/:id", authMiddleware,authorizeRole("Admin", "Developer"), updateBug);
 
+router.put("/:id/assign",authMiddleware,authorizeRole("Admin"),assignBug);
+
 router.delete("/:id",authMiddleware, authorizeRole("Admin"),deleteBug);
+
 
 export default router;

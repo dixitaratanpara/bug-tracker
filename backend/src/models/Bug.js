@@ -1,48 +1,54 @@
 import mongoose from "mongoose";
 
 const bugSchema = new mongoose.Schema(
-{
+    {
 
-    title:{
-        type:String,
-        required:true,
-        trim:true,
-    },
+        title: {
+            type: String,
+            required: true,
+            trim: true,
+        },
 
-    description:{
-        type:String,
-        required:true,
-        trim:true,
-    },
+        description: {
+            type: String,
+            required: true,
+            trim: true,
+        },
 
-    projectName: {
-    type: String,
-    required: true,
-    },
-    
-    priority:{
-        type:String,
-        enum:["Low","Medium","High"],
-        default:"Medium",
-    },
-    
-    status: {
-      type: String,
-      enum: ["Open", "In Progress", "Resolved"],
-      default: "Open",
-    },
+        projectName: {
+            type: String,
+            required: true,
+        },
 
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+        priority: {
+            type: String,
+            enum: ["Low", "Medium", "High"],
+            default: "Medium",
+        },
+
+        status: {
+            type: String,
+            enum: ["Open", "In Progress", "Resolved"],
+            default: "Open",
+        },
+
+        createdBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+
+        assignedTo: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            default: null,
+        },
     },
-},
-{
-    timestamps:true,
-}
+    {
+        timestamps: true,
+    }
 );
 
-const Bug = mongoose.model("Bug",bugSchema);
+const Bug = mongoose.model("Bug", bugSchema);
 
 export default Bug;

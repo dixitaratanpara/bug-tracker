@@ -19,6 +19,28 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
+//get assigned user
+export const getAssignableUsers = async (req, res) => {
+    try {
+        const users = await User.find({
+            role: { $in: ["Developer", "Tester"] },
+        }).select("-password");
+
+        return res.status(200).json({
+            success: true,
+            users,
+        });
+    }
+    catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Server Error",
+        });
+    }
+};
+
 //getrole
 export const updateUserRole = async (req, res) => {
 

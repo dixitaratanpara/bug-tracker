@@ -117,7 +117,7 @@ function Dashboard() {
 
     const lastBugIndex = currentPage * bugsPerPage;
     const firstBugIndex = lastBugIndex - bugsPerPage;
-    const currentBugs = filteredBugs.slice(firstBugIndex, lastBugIndex);
+    const currentBugs = sortedBugs.slice(firstBugIndex, lastBugIndex);
 
 
     return (

@@ -52,61 +52,65 @@ function AdminUsers() {
             <div className="admin-users-header">
 
                 <h2>Manage Users</h2>
-                 <p>Manage developer and tester roles</p>
+                <p>Manage developer and tester roles</p>
 
             </div>
 
-             <div className="users-list">
+            <div className="users-list">
 
-                 {users.map((user) => (
-                      <div className="user-card"
-                            key={user._id}>
-                            
-                             <div className="user-info">
-                                <div className="user-avatar">
-                                    {user.name.charAt(0).toUpperCase()}
-                                </div>
+                {users.map((user) => (
+                    <div className="user-card"
+                        key={user._id}>
 
-                                <div>
-                            <h3>{user.name}</h3>
-                            <p>{user.email}</p>
+                        <div className="user-info">
+                            <div className="user-avatar">
+                                {user.name.charAt(0).toUpperCase()}
+                            </div>
+
+                            <div>
+                                <h3>{user.name}</h3>
+                                <p>{user.email}</p>
+                            </div>
+
                         </div>
 
-             </div>
+                        <div className="user-role">
 
-             <div className="user-role">
+                            <label>Role</label>
 
-            <label>Role</label>
+                            <select
+                                value={user.role}
+                                onChange={(e) =>
+                                    handleRoleChange(user._id, e.target.value)
+                                }
+                            >
 
-                    <select
-                        value={user.role}
-                        onChange={(e) =>
-                            handleRoleChange(user._id, e.target.value)
-                        }
-                    >
+                                <option value="Admin">Admin</option>
 
-                        <option value="Admin">Admin</option>
+                                <option value="Developer">
+                                    Developer
+                                </option>
 
-                        <option value="Developer">
-                            Developer
-                        </option>
+                                <option value="Tester">
+                                    Tester
+                                </option>
 
-                        <option value="Tester">
-                            Tester
-                        </option>
-
-                    </select>
+                            </select>
 
 
-                </div>
+                        </div>
 
-                  </div>
+                    </div>
 
-            ))}
+                ))}
 
+            </div>
+            <br></br>
+           <button className="user-card" 
+                 onClick={()=>navigate("/dashboard")}>
+               Go To Dashboard
+           </button>
         </div>
-
-          </div>
     );
 }
 

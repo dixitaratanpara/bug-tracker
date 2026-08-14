@@ -63,10 +63,14 @@ function Profile() {
                     Change Password
                 </button>
             </div>
-
+            
+           <button onClick={() => navigate("/dashboard")}>
+                   Go to Dashboard
+            </button>
         </div>
-
+         
     </div>
+    
 );
 }
 

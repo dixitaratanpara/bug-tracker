@@ -1,4 +1,5 @@
 import Bug from "../models/Bug.js";
+import User from "../models/User.js";
 
 
 //create Bug
@@ -40,9 +41,19 @@ export const createBug = async (req, res) => {
 //GET Bug
 export const getAllBugs = async (req, res) => {
     try {
-        const bugs = await Bug.find()
+
+        let filter={};
+        if(req.user.role=== "Developer" || req.user.role==="Tester"){
+            filter.assignedTo= req.user.id;
+        }
+
+
+        const bugs = await Bug.find(filter)
             .populate("createdBy", "name email role")
+            .populate("assignedTo", "name email role")
             .sort({ createdAt: -1 });
+
+        
 
         return res.status(200).json({
             success: true,
@@ -147,6 +158,56 @@ export const deleteBug = async (req, res) => {
         });
     }
     catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
+    }
+};
+
+//assign Bug
+export const assignBug = async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+        const bug = await Bug.findById(req.params.id);
+
+        if (!bug) {
+            return res.status(404).json({
+                success: false,
+                message: "Bug not found",
+            });
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        if (!["Developer", "Tester"].includes(user.role)) {
+            return res.status(400).json({
+                success: false,
+                message: "Bug can only be assigned to Developer or Tester",
+            });
+        }
+
+        bug.assignedTo = user._id;
+
+        await bug.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Bug Assigned Successfully",
+            bug,
+        });
+
+    } catch (error) {
         console.error(error);
 
         return res.status(500).json({
